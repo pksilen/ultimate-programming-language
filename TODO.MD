@@ -12,6 +12,7 @@
   modules e.g. for unit testing. You don't need a User Service class, but you can have a 'user service' module (user service.drgn) that contains
   functions like create user, fetch user, delete user.
 - In Dragon you can add articles like 'a' and 'the' freely
+- Dragon uses 'is' instead of ==, so that it is not possible to write accidentally = instead of ==
 
 - Code block syntax is derived from Python:
   - Ugly: Curly braces just make code more verbose and are visual clutter compared to single colon
@@ -53,7 +54,7 @@ Dragon does not have
 Dragon supports match/switch statement only for factories:
 
 **interface** Logger<br/>
-    **function** log(...) returns nothing
+    **function** _log_(...) returns nothing
 
 **class** Abc Logger implements Logger
 **class** Xyz Logger implements Logger
@@ -61,7 +62,7 @@ Dragon supports match/switch statement only for factories:
 # Language will automatically generate Null Logger class
 **class** Null Logger implements Logger
 
-*enum* Logger Type is one of
+*enumerated type* Logger Type is one of
     Abc
     Xyz
 
@@ -70,18 +71,19 @@ Dragon supports match/switch statement only for factories:
     create Xyz Logger if logger type is Xyz
     otherwise create Null Logger
 
-
 # Function names returning possibly an Error must begin with _try_ prefix
 
 user service module:
-**function** try to fetch user(by id: int) eventually returns User or Error
-**function** try to create(a user: User) eventually returns nothing or Error
+**function** _try to fetch user_(by id: int) eventually returns User or Error
+**function** _try to create_(a user: User) eventually returns nothing or Error
 
 todo service module:
-**function** try to create(a todo: Todo) eventually returns nothing or Error
-
+**function** _try to fetch todos_ eventually returns Todo List or Error
+**function** _try to create_(a todo: Todo) eventually returns nothing or Error
 
 Code in Todo View class:
+
+# The below todo variable is immutable be default
 todo = {
     id
     description
@@ -90,13 +92,17 @@ todo = {
 create _todo_ using the _controller_
 
 class Todo Controller
-    function create(todo: Todo) returns nothing
-    function show(todos: Todo[]) in the view returns nothing
+    function create(a todo: Todo) returns nothing
+    function show(the todos: Todo List) in the view returns nothing
     function show(an error: Error) in the view returns nothing
 
 Code in a Todo Model class method:
 try to create a _todo_
 but on failure show an error in the view using the _controller_
+
+try to fetch todos
+and then show the todos in the view using the _controller_
+otherwise show an error in the view using the _controller_
 
 class User Controller
     function show(the user: User) in the view returns nothing
