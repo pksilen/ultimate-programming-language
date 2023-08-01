@@ -1,5 +1,6 @@
 - Ultimate programming language is called Dragon
 - Logo image is in shutterstock silensoft favorites folder
+  - Logo font Bebas Neue (Google fonts)
 
 - Dragon should enforce single statements like Python lambdas. This will require users to create new functions
   for code that is more than one statement
@@ -25,13 +26,26 @@
   - Dragon: update view with todos using controller. Ugly: Usage of underscores and parenthesis are not needed
   - Dragon: add number to numbers
 
+- Exception classes in Dragon are created automatically when you use a class name that ends in Error it is automatically 
+  generated and extended from base "Error" class. 
+
 ```
 numbers = []
 number = ...
 index = ...
 
-shape = create Circle Shape with radius of 30
+number is between [1, 255]
+number is between [1, 255[
+
+shape = Circle Shape(radius: 30)
 draw shape
+
+circle options = {
+    stroke width: 1
+    fill color: #555555
+}
+
+circle = Circle Shape(radius: 30, circle options)
 
 new numbers = add number at index to numbers
 
@@ -115,6 +129,11 @@ otherwise show an error in the view using the _controller_
 If the 'otherwise' is missing, the compiler gives an error when value returned by the 'and then' method
 is not used. (Also the function return value is incorrect, it should be 'nothing') The 'and then' function returns 
 a special Promise-kind instance containing the 'otherwise' method
+
+Backend User service class:
+
+user|error = wait: try to get user by _id_ from the _repository_
+return left of user|error otherwise Not Found Error(entity: 'User', id)
 
 Ugly:
   - Python convention of underscores for private and protected class/instance members
