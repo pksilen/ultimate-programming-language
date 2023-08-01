@@ -11,6 +11,7 @@
   function without a class and put functions in a module named like the class. In dependency injection, you can inject different
   modules e.g. for unit testing. You don't need a User Service class, but you can have a 'user service' module (user service.drgn) that contains
   functions like create user, fetch user, delete user.
+- In Dragon you can add articles like 'a' and 'the' freely
 
 - Code block syntax is derived from Python:
   - Ugly: Curly braces just make code more verbose and are visual clutter compared to single colon
@@ -72,18 +73,38 @@ Dragon supports match/switch statement only for factories:
 
 # Function names returning possibly an Error must begin with _try_ prefix
 
-**function** try fetch user(by id: int) eventually returns User or Error
-**function** try to create(user: User) eventually returns nothing or Error
+user service module:
+**function** try to fetch user(by id: int) eventually returns User or Error
+**function** try to create(a user: User) eventually returns nothing or Error
 
+todo service module:
+**function** try to create(a todo: Todo) eventually returns nothing or Error
+
+
+Code in Todo View class:
+todo = {
+    id
+    description
+    is done
+}
+create _todo_ using the _controller_
+
+class Todo Controller
+    function create(todo: Todo) returns nothing
+    function show(todos: Todo[]) in the view returns nothing
+    function show(an error: Error) in the view returns nothing
 
 Code in a Todo Model class method:
 try to create a _todo_
-but on failure show error in view using the _controller_
+but on failure show an error in the view using the _controller_
 
+class User Controller
+    function show(the user: User) in the view returns nothing
+    function show(an error: Error) in the view returns nothing
 
-try fetch user by _id_
-and then show user in view using the _controller_
-otherwise show error in view using the _controller_
+try to fetch user by _id_
+and then show the user in the view using the _controller_
+otherwise show an error in the view using the _controller_
 
 If the 'otherwise' is missing, the compiler gives an error when value returned by the 'and then' method
 is not used. (Also the function return value is incorrect, it should be 'nothing') The 'and then' function returns 
