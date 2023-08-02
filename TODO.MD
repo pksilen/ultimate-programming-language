@@ -101,14 +101,13 @@ interface List<T>
     function this' length returns int
 
 
-interface Either<TLeft, TRight where TLeft != TRight>
+class Either<TLeft, TRight where TLeft != TRight>
     Either(of value: TLeft)
     Either(of value: TRight)
     function left of this returns Maybe<TLeft>
     function right of this returns Maybe<TRight>
     function map left of this(to value: TLeft -> U) returns Maybe<U>
     function map right of this(to value: TRight -> U) returns Maybe<U>
-
 
 user = ...
 error = ...
