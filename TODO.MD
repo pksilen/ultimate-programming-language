@@ -62,6 +62,9 @@ shape options|error = {
     fill color: get 'FILL_COLOR' value from environment variables
 }
 
+Dragon allows only one function call per line to avoid unreadable statements like:
+an int(get 'STROKE_WIDTH' value from environment variables)
+
 # Properties are by default private and immutable
 # In other languages it is ugly to always define "private readonly" (TypeSCript) or "private final" in Java
 class Circle Shape implements Shape
@@ -92,12 +95,13 @@ number count = numbers' length
 ```
 
 interface List<T>
-    function sort() this returns List<T>
-    function has(a value: T) in this returns boolean
+    function sort this returns List<T>
+    function has (a value: T) in this returns boolean
     function find first index(of value: T) in this returns int
     function remove(the value: T) from this returns List<T>
-    function length of() this returns int
-    function this' length() returns int
+    function length of this returns int
+    function this' length returns int
+
 
 Dragon does not have
 - if/else statements
