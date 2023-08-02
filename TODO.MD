@@ -73,8 +73,8 @@ public mutable property radius: int
 
 Shape Options? == Maybe<Shape Options> == Either<Shape Options, nothing>
 
-circle = Circle Shape(radius: 30, left of shape options|error otherwise nothing)
-mutable circle = Circle Shape(radius: 30, left of shape options|error otherwise nothing)
+circle = a Circle Shape(radius: 30, left of shape options|error otherwise nothing)
+mutable circle = a Circle Shape(radius: 30, left of shape options|error otherwise nothing)
 
 new numbers = add _number_ at _index_ to _numbers_
 
@@ -96,23 +96,33 @@ Dragon does not have
 
 Dragon supports match/switch statement only for factories:
 
+*enumerated type* Log Level is one of
+    ERROR
+    WARNING
+    INFO
+    DEBUG
+
 **interface** Logger<br/>
-    **function** _log_(...) returns nothing
+    **function** _log_(log level: Log Level, message: string) returns nothing
 
 **class** Abc Logger implements Logger
 **class** Xyz Logger implements Logger
+
+logger = an Abc Logger
+message = 'Application started'
+log INFO message with logger
 
 # Language will automatically generate Null Logger class
 **class** Null Logger implements Logger
 
 *enumerated type* Logger Type is one of
-    Abc
-    Xyz
+    ABC
+    XYZ
 
 **function** create logger(of logger type: Logger Type) returns Logger
-    return Abc Logger if logger type is Abc
-           or Xyz Logger if logger type is Xyz
-           else Null Logger
+    return an Abc Logger if logger type is ABC
+           or a Xyz Logger if logger type is XYZ
+           otherwise a Null Logger
 
 # Function names returning possibly an Error must begin with _try_ prefix
 
@@ -173,7 +183,7 @@ a special Promise-kind instance containing the 'otherwise' method
 Backend User service class:
 
 user|error = wait: try to get user by _id_ from the _repository_
-return left of user|error otherwise Not Found Error(entity: 'User', id)
+return left of user|error otherwise a Not Found Error(entity: 'User', id)
 (return user|error.left() ?? new NotFoundError(entity: 'User', id)))
 
 Ugly:
