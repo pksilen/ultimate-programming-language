@@ -14,6 +14,8 @@
   functions like create user, fetch user, delete user.
 - In Dragon you can add articles like 'a' and 'the' freely
 - Dragon uses 'is' instead of ==, so that it is not possible to write accidentally = instead of ==
+- Data types: boolean, int, number, float, string, nothing
+- Automatic data conversions when ever possible: e.g. boolean -> int/number/float/string, int/number/float -> string/boolean
 
 - Code block syntax is derived from Python:
   - Ugly: Curly braces just make code more verbose and are visual clutter compared to single colon
@@ -54,11 +56,14 @@ default shape options = valid {
     fill color: '#555555'
 }
 
-If valid keyword is not given, we get Either<ShapeOptions, Error>
+If the 'valid' keyword is not given, we get Either<ShapeOptions, Error>
+
+#Compiler generates automatically code to convert string to int for stroke width and
+if failing returns an error
 
 shape options|error = {
-    stroke width: stroke width from environment variables 
-    fill color: fill color from environment variables
+    stroke width: an int(get 'STROKE_WIDTH' from environment variables) 
+    fill color: get 'FILL_COLOR' from environment variables
 }
 
 # Properties are by default private and immutable
