@@ -40,12 +40,21 @@ number is between [1, 255[
 shape = Circle Shape(radius: 30)
 draw shape
 
-circle options = {
+data struct Shape Options
+    @positive
+    @optional
+    stroke width: int
+    
+    @hexcolor
+    @optional
+    fill color: string
+
+shape options = {
     stroke width: 1
-    fill color: #555555
+    fill color: '#555555'
 }
 
-circle = Circle Shape(radius: 30, circle options)
+circle = Circle Shape(radius: 30, shape options)
 
 new numbers = add number at index to numbers
 
@@ -88,18 +97,27 @@ Dragon supports match/switch statement only for factories:
 # Function names returning possibly an Error must begin with _try_ prefix
 
 user service module:
-**function** _try to fetch user_(by id: int) eventually returns User or Error
-**function** _try to create_(a user: User) eventually returns nothing or Error
+**function** _try to fetch user_(by id: int) eventually returns Either<User, Error>
+**function** _try to create_(a user: User) eventually returns Either<nothing, Error>
 
 todo service module:
-**function** _try to fetch todos_ eventually returns Todo List or Error
-**function** _try to create_(a todo: Todo) eventually returns nothing or Error
+**function** _try to fetch todos_ eventually returns Either<Todo[], Error>
+**function** _try to create_(a todo: Todo) eventually returns Either<nothing, Error>
 
 Code in Todo View class:
 
+**data struct** Todo
+    id: int
+
+    @max length(256)
+    description: string
+
+    is done: boolean
+
+InputTodo = Todo without id
+
 # The below todo variable is immutable be default
-todo = {
-    id
+todo: InputTodo = {
     description
     is done
 }
@@ -134,6 +152,7 @@ Backend User service class:
 
 user|error = wait: try to get user by _id_ from the _repository_
 return left of user|error otherwise Not Found Error(entity: 'User', id)
+(return user|error.left() ?? new NotFoundError(entity: 'User', id)))
 
 Ugly:
   - Python convention of underscores for private and protected class/instance members
