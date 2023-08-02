@@ -70,7 +70,6 @@ class Circle Shape implements Shape
     
 public mutable property radius: int
 
-
 Shape Options? == Maybe<Shape Options> == Either<Shape Options, nothing>
 
 circle = a Circle Shape(radius: 30, left of shape options|error otherwise nothing)
@@ -102,36 +101,39 @@ Dragon supports match/switch statement only for factories:
     Info
     Debug
 
-**interface** Logger<br/>
-    **function** _log_(a message: string, at level: Log Level) returns nothing
+**actor interface** Logger<br/>
+    **function** _logs_(a message: string, at level: Log Level) and returns nothing
 
-**class** Abc Logger implements Logger
-**class** Xyz Logger implements Logger
+**actor class** Standard Output Logger implements Logger
+**actor class** File Logger implements Logger
 
-logger = an Abc Logger
-log 'Application started' at level Info with logger
+logger = a Standard Output Logger
+logger logs 'Application started' at level Info
 
-# Language will automatically generate Null Logger class
-**class** Null Logger implements Logger
+# Language will automatically generate Nothing Logger class
+**actor class** Nothing Logger implements Logger
 
 *enumerated type* Logger Type is one of
-    Abc
-    Xyz
+    Standard Output
+    File
 
-**function** create logger(of logger type: Logger Type) returns Logger
-    return an Abc Logger if logger type is Abc
-           or a Xyz Logger if logger type is Xyz
-           otherwise a Null Logger
+public **function** create a logger(of logger type: Logger Type) and return Logger
+    return a Standard Output Logger if logger type is Standard Output
+           or a File Logger if logger type is File
+           otherwise a Nothing Logger
+
+std out logger = create a logger of logger type Standard Output
+file logger = create a logger of logger type File
 
 # Function names returning possibly an Error must begin with _try_ prefix
 
-user service module:
-**function** _try to fetch user_(by id: int) eventually returns Either<User, Error>
-**function** _try to create_(a user: User) eventually returns Either<nothing, Error>
+user service actor class:
+**function** _tries to fetch user_(by id: int) and eventually returns Either<User, Error>
+**function** _tries to create_(a user: User) and eventually returns Either<nothing, Error>
 
-todo service module:
-**function** _try to fetch todos_ eventually returns Either<Todo[], Error>
-**function** _try to create_(a todo: Todo) eventually returns Either<nothing, Error>
+todo service actor class:
+**function** _tries to fetch todos_() and eventually returns Either<Todo[], Error>
+**function** _tries to create_(a todo: Todo) and eventually returns Either<nothing, Error>
 
 Code in Todo View class:
 
@@ -152,28 +154,28 @@ todo: InputTodo = valid {
     description
     is done: false
 } 
-create _todo_ using the _controller_
+controller creates a _todo_
 
-class Todo Controller
-    public function create(a todo: Todo) returns nothing
-    public function show(the todos: Todo List) in the view returns nothing 
-    public function show(an error: Error) in the view returns nothing
+actor class Todo Controller
+    public function creates(a todo: Todo) and returns nothing
+    public function shows(the todos: Todo[]) in the view and returns nothing 
+    public function shows(an error: Error) in the view and returns nothing
 
 Code in a Todo Model class method:
-try to create a _todo_
-but on failure show an error in the view using the _controller_
+todo service tries to create a _todo_
+but on failure controller shows an error in the view
 
-try to fetch todos
-and then show the todos in the view using the _controller_
-otherwise show an error in the view using the _controller_
+todo service tries to fetch todos
+and then controller shows the todos in the view
+otherwise controller shows an error in the view
 
-class User Controller
-    public function show(the user: User) in the view returns nothing
-    public function show(an error: Error) in the view returns nothing
+actor class User Controller
+    public function shows(the user: User) in the view and returns nothing
+    public function shows(an error: Error) in the view and returns nothing
 
-try to fetch user by _id_
-and then show the user in the view using the _controller_
-otherwise show an error in the view using the _controller_
+user service tries to fetch user by _id_
+and then controller shows the user in the view
+otherwise controller shows an error in the view
 
 If the 'otherwise' is missing, the compiler gives an error when value returned by the 'and then' method
 is not used. (Also the function return value is incorrect, it should be 'nothing') The 'and then' function returns 
@@ -181,7 +183,8 @@ a special Promise-kind instance containing the 'otherwise' method
 
 Backend User service class:
 
-user|error = wait: try to get user by _id_ from the _repository_
+# wait while is a keyword
+user|error = wait while repository tries to get user by _id_
 return left of user|error otherwise a Not Found Error(entity: 'User', id)
 (return user|error.left() ?? new NotFoundError(entity: 'User', id)))
 
