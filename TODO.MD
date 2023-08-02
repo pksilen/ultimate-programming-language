@@ -62,6 +62,7 @@ shape options|error = {
 }
 
 # Properties are by default private and immutable
+# In other languages it is ugly to always define "private readonly" (TypeSCript) or "private final" in Java
 class Circle Shape implements Shape
     constructor(
         property radius: int,
