@@ -97,31 +97,30 @@ Dragon does not have
 Dragon supports match/switch statement only for factories:
 
 *enumerated type* Log Level is one of
-    ERROR
-    WARNING
-    INFO
-    DEBUG
+    Error
+    Warning
+    Info
+    Debug
 
 **interface** Logger<br/>
-    **function** _log_(log level: Log Level, message: string) returns nothing
+    **function** _log_(a message: string, at level: Log Level) returns nothing
 
 **class** Abc Logger implements Logger
 **class** Xyz Logger implements Logger
 
 logger = an Abc Logger
-message = 'Application started'
-log INFO message with logger
+log 'Application started' at level Info with logger
 
 # Language will automatically generate Null Logger class
 **class** Null Logger implements Logger
 
 *enumerated type* Logger Type is one of
-    ABC
-    XYZ
+    Abc
+    Xyz
 
 **function** create logger(of logger type: Logger Type) returns Logger
-    return an Abc Logger if logger type is ABC
-           or a Xyz Logger if logger type is XYZ
+    return an Abc Logger if logger type is Abc
+           or a Xyz Logger if logger type is Xyz
            otherwise a Null Logger
 
 # Function names returning possibly an Error must begin with _try_ prefix
