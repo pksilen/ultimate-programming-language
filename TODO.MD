@@ -39,15 +39,15 @@ index = ...
 number is between [1, 255]
 number is between [1, 255[
 
-shape = Circle Shape(radius: 30)
+shape = Circle Shape(radius 30)
 draw shape
 
 data struct Shape Options
     @positive
-    stroke width: int? = 1
+    stroke width: Maybe<int> = 1
     
     @hexcolor
-    fill color: string?
+    fill color: Maybe<string>
 
 default shape options = valid {
     stroke width: 1
@@ -68,17 +68,15 @@ an int(get 'STROKE_WIDTH' value from environment variables)
 # Properties are by default private and immutable
 # In other languages it is ugly to always define "private readonly" (TypeSCript) or "private final" in Java
 class Circle Shape implements Shape
-    constructor(
+    Circle Shape(
         property radius: int,
-        property shape options: Shape Options? = default shape options
+        property shape options: Maybe<Shape Options> = default shape options
     )
     
 public mutable property radius: int
 
-Shape Options? == Maybe<Shape Options> == Either<Shape Options, nothing>
-
-circle = a Circle Shape(radius: 30, left of shape options|error otherwise nothing)
-mutable circle = a Circle Shape(radius: 30, left of shape options|error otherwise nothing)
+circle = a Circle Shape(radius 30, left of shape options|error)
+mutable circle = a Circle Shape(radius 30, left of shape options|error)
 
 new numbers = add _number_ at _index_ to _numbers_
 
@@ -102,6 +100,23 @@ interface List<T>
     function length of this returns int
     function this' length returns int
 
+
+interface Either<TLeft, TRight where TLeft != TRight>
+    Either(of value: TLeft)
+    Either(of value: TRight)
+    function left of this returns Maybe<TLeft>
+    function right of this returns Maybe<TRight>
+    function map left of this(to value: TLeft -> U) returns Maybe<U>
+    function map right of this(to value: TRight -> U) returns Maybe<U>
+
+
+user = ...
+error = ...
+user|error = an Either<User, Error>(of user)
+user|error = an Either<User, Error>(of error)
+
+username = user -> user.name
+maybe username = map left of user|error to username
 
 Dragon does not have
 - if/else statements
