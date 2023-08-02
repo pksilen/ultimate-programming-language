@@ -110,9 +110,9 @@ Dragon supports match/switch statement only for factories:
     Xyz
 
 **function** create logger(of logger type: Logger Type) returns Logger
-    create Abc Logger if logger type is Abc or
-    create Xyz Logger if logger type is Xyz
-    otherwise create Null Logger
+    return Abc Logger if logger type is Abc
+           or Xyz Logger if logger type is Xyz
+           else Null Logger
 
 # Function names returning possibly an Error must begin with _try_ prefix
 
@@ -146,9 +146,9 @@ todo: InputTodo = valid {
 create _todo_ using the _controller_
 
 class Todo Controller
-    function create(a todo: Todo) returns nothing
-    function show(the todos: Todo List) in the view returns nothing
-    function show(an error: Error) in the view returns nothing
+    public function create(a todo: Todo) returns nothing
+    public function show(the todos: Todo List) in the view returns nothing 
+    public function show(an error: Error) in the view returns nothing
 
 Code in a Todo Model class method:
 try to create a _todo_
@@ -159,8 +159,8 @@ and then show the todos in the view using the _controller_
 otherwise show an error in the view using the _controller_
 
 class User Controller
-    function show(the user: User) in the view returns nothing
-    function show(an error: Error) in the view returns nothing
+    public function show(the user: User) in the view returns nothing
+    public function show(an error: Error) in the view returns nothing
 
 try to fetch user by _id_
 and then show the user in the view using the _controller_
