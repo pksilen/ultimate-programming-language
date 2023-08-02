@@ -49,23 +49,43 @@ data struct Shape Options
     @optional
     fill color: string
 
-shape options = {
+default shape options = valid {
     stroke width: 1
     fill color: '#555555'
 }
 
-circle = Circle Shape(radius: 30, shape options)
+If valid keyword is not given, we get Either<ShapeOptions, Error>
 
-new numbers = add number at index to numbers
+shape options|error = {
+    stroke width: stroke width from environment variables 
+    fill color: fill color from environment variables
+}
+
+# Properties are by default private and immutable
+class Circle Shape implements Shape
+    constructor(
+        property radius: int,
+        property shape options: Shape Options? = default shape options
+    )
+    
+public mutable property radius: int
+
+
+Shape Options? == Maybe<Shape Options> == Either<Shape Options, nothing>
+
+circle = Circle Shape(radius: 30, left of shape options|error otherwise nothing)
+mutable circle = Circle Shape(radius: 30, left of shape options|error otherwise nothing)
+
+new numbers = add _number_ at _index_ to _numbers_
 
 if ambiguity, e.g there is a method "add number", we must use
 add 'number' at index
 
-remove number from numbers
-find index of number in numbers
-has number in numbers
-sort numbers
-clear numbers
+new numbers = remove number from numbers
+index = find first index of number in numbers
+has number = has number in numbers
+sorted numbers = sort numbers
+clear numbers (only for a mutable list)
 number count = count numbers
 ```
 
@@ -117,10 +137,12 @@ Code in Todo View class:
 InputTodo = Todo without id
 
 # The below todo variable is immutable be default
-todo: InputTodo = {
+# When todo variable is assigned we assure that data structure is valid, because
+# we validate the description in other place
+todo: InputTodo = valid {
     description
-    is done
-}
+    is done: false
+} 
 create _todo_ using the _controller_
 
 class Todo Controller
