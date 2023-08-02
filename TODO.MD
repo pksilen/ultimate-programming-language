@@ -44,12 +44,10 @@ draw shape
 
 data struct Shape Options
     @positive
-    @optional
-    stroke width: int
+    stroke width: int? = 1
     
     @hexcolor
-    @optional
-    fill color: string
+    fill color: string?
 
 default shape options = valid {
     stroke width: 1
@@ -58,12 +56,10 @@ default shape options = valid {
 
 If the 'valid' keyword is not given, we get Either<ShapeOptions, Error>
 
-#Compiler generates automatically code to convert string to int for stroke width and
-if failing returns an error
-
+stroke width string = get 'STROKE_WIDTH' value from environment variables
 shape options|error = {
-    stroke width: an int(get 'STROKE_WIDTH' from environment variables) 
-    fill color: get 'FILL_COLOR' from environment variables
+    stroke width: an int(parsed from: stroke width string)
+    fill color: get 'FILL_COLOR' value from environment variables
 }
 
 # Properties are by default private and immutable
@@ -91,8 +87,17 @@ index = find first index of number in numbers
 has number = has number in numbers
 sorted numbers = sort numbers
 clear numbers (only for a mutable list)
-number count = count numbers
+number count = length of numbers
+number count = numbers' length
 ```
+
+interface List<T>
+    function sort() this returns List<T>
+    function has(value: T) in this returns boolean
+    function find first index(of: value) in this returns int
+    function remove(value: T) from this returns List<T>
+    function length of() this returns int
+    function this' length() returns int
 
 Dragon does not have
 - if/else statements
