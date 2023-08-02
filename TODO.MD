@@ -82,7 +82,7 @@ new numbers = add _number_ at _index_ to _numbers_
 if ambiguity, e.g there is a method "add number", we must use
 add 'number' at index
 
-new numbers = remove number from numbers
+new numbers = remove the _number_ from numbers
 index = find first index of number in numbers
 has number = has number in numbers
 sorted numbers = sort numbers
@@ -93,9 +93,9 @@ number count = numbers' length
 
 interface List<T>
     function sort() this returns List<T>
-    function has(value: T) in this returns boolean
-    function find first index(of: value) in this returns int
-    function remove(value: T) from this returns List<T>
+    function has(a value: T) in this returns boolean
+    function find first index(of value: T) in this returns int
+    function remove(the value: T) from this returns List<T>
     function length of() this returns int
     function this' length() returns int
 
@@ -128,7 +128,7 @@ logger logs 'Application started' at level Info
     Standard Output
     File
 
-public **function** create a logger(of logger type: Logger Type) and return Logger
+public **function** create a logger(of logger type: Logger Type) returns Logger
     return a Standard Output Logger if logger type is Standard Output
            or a File Logger if logger type is File
            otherwise a Nothing Logger
