@@ -16,6 +16,13 @@
 - Dragon uses 'is' instead of ==, so that it is not possible to write accidentally = instead of ==
 - Data types: boolean, int, number, float, string, nothing
 - Automatic data conversions when ever possible: e.g. boolean -> int/number/float/string, int/number/float -> string/boolean
+- "not" in expression can be anywhere, e.g.
+```
+class Message Buffer
+    function write(message: Message) if buf not full returns Either<nothing, Error>
+        buffer is full = messages' length >= max length
+        add message to messages if buffer is not full else return a Message Buffer Full Error
+```
 
 - Code block syntax is derived from Python:
   - Ugly: Curly braces just make code more verbose and are visual clutter compared to single colon
