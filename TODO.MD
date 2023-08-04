@@ -19,9 +19,9 @@
 - "not" in expression can be anywhere, e.g.
 ```
 class Message Buffer
-    function write(message: Message) if buf not full returns Either<nothing, Error>
+    function write(message: Message) to buf if not full returns Either<nothing, Error>
         buffer is full = messages' length >= max length
-        add message to messages if buffer is not full else return a Message Buffer Full Error
+        add message to messages if buffer is not full else return a Buffer Full Error
 ```
 
 - Code block syntax is derived from Python:
