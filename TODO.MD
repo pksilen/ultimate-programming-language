@@ -8,10 +8,18 @@
   in Java when you need to use a lot of final keyword in the code
 - Class member variables/methods are private by default, this reduces the verbosity of having `private` keyword like in Java
   or TypeScript
-- Ugly: In Java you need to create a class for everything like a collection of methods without state. You should only write
+- May be wrong: (Ugly: In Java you need to create a class for everything like a collection of methods without state. You should only write
   function without a class and put functions in a module named like the class. In dependency injection, you can inject different
   modules e.g. for unit testing. You don't need a User Service class, but you can have a 'user service' module (user service.drgn) that contains
-  functions like create user, fetch user, delete user.
+  functions like create user, fetch user, delete user.)
+- Dragon should contain functionality needed for any non-trivial application, e.g. DI or unit testing should not come from separate 3rd party libs
+  - Dependency injection is built-in in the language
+    - Dependency injection has a DI container where dependencies are defined by name, 
+        e.g. 'user service' = a Singleton(of User Service)
+        e.g. 'other_dep' = an Instance(of Another Class)
+        class User Controller 
+            user service = user service from DI container
+- Unit testing is built-in in the laguages
 - In Dragon you can add articles like 'a' and 'the' freely
 - Dragon uses 'is' instead of ==, so that it is not possible to write accidentally = instead of ==
 - Data types: boolean, int, number, float, string, nothing
