@@ -20,7 +20,12 @@
         class User Controller 
             user service = user service from DI container
 - Unit testing is built-in in the laguages
+- Integration testing language (Gherkin style ) is built-in in the language
+  - Sometimes the "When" keyword could be replaced with "After" keyword, e.g. "AFTER 15 seconds is waited, THEN ..."
 - In Dragon you can add articles like 'a' and 'the' freely
+- Dragon IDE tries to complete a function call after first word is written, e.g. if user writes 'add' and there
+  is a list variable "number" and "numbers" in the scope, the IDE can suggest "add number to numbers" and user
+  can easily complete the sentence with a tab key.
 - Dragon uses 'is' instead of ==, so that it is not possible to write accidentally = instead of ==
 - Data types: boolean, int, number, float, string, nothing
 - Automatic data conversions when ever possible: e.g. boolean -> int/number/float/string, int/number/float -> string/boolean
