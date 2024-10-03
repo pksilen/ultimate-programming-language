@@ -273,9 +273,6 @@ car is _drivable_:
 car is _cargo Carrying_:
    carry _amount_ kgs of cargo
 
-car object behaves:
-  ...
-  ...
 
 
 import console
