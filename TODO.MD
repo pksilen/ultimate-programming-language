@@ -282,8 +282,8 @@ get _signedness_ of _value_
 print _signedness_ to _console_
 
 get _signedness_:string of integer:_value_:
-  when _value_ is
-     zero, then return "zero"
-     less than zero, then return "negative"
-     greater than zero, then return "positive"
+  when _value_
+     is zero, then return "zero"
+     is less than zero, then return "negative"
+     is greater than zero, then return "positive"
 ```
