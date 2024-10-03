@@ -249,3 +249,44 @@ Ugly:
 
 Bad:
 - Zero-based indexing => results in off-by-one errors. Dragon uses one-based indexing
+
+
+Examples:
+
+```
+_drivable_ must implement:
+  drive to a _destination_: Location
+
+_cargo carrying_ must implement:
+  carry _amount_ kgs of cargo
+
+_automobile_ is _drivable_ and _cargo carrying_
+
+_car_ has:
+   engine: Engine
+   steering wheel: Steering Wheel
+   wheels: Wheels
+
+car is _drivable_:
+  drive to a _destination_: Location
+
+car is _cargo Carrying_:
+   carry _amount_ kgs of cargo
+
+car object behaves:
+  ...
+  ...
+
+
+import console
+
+_value_ is 100
+get _signedness_ of _value_
+print _signedness_ to _console_
+
+get _signedness_:string of integer:_value_:
+  when _value_ is
+     zero, then return "zero"
+     less than zero, then return "negative"
+     greater than zero, then return "positive"
+```
